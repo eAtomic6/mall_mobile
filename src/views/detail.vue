@@ -1,36 +1,38 @@
 <template>
   <div class="container">
-    <van-swipe indicator-color @change="onChange">
-      <van-swipe-item v-for="(image, index) in detailInfo.images" :key="index">
-        <img :src="image" />
-      </van-swipe-item>
-      <template #indicator>
-        <div class="custom-indicator">
-          {{ current + 1 }}/{{detailInfo.images.length}}
-        </div>
-      </template>
-    </van-swipe>
-    <div class="price-time-box content">
-      <p class="price"><span>¥{{detailInfo.price}}</span></p>
-      <p class="time">
-        <span>距秒杀结束还剩</span>
-        <van-count-down :time="time">
-          <template v-slot="timeData">
-            <span class="block">{{ timeFilter(timeData.hours) }}</span>
-            <span class="colon">:</span>
-            <span class="block">{{ timeFilter(timeData.minutes) }}</span>
-            <span class="colon">:</span>
-            <span class="block">{{ timeFilter(timeData.seconds) }}</span>
-          </template>
-        </van-count-down>
-      </p>
-    </div>
-    <div class="detail-box content">
-      <p class="name"><span>{{detailInfo.name}}</span></p>
-      <p class="like">
-        <van-icon name="like-o" size="20" />
-        <span>收藏</span>
-      </p>
+    <div class="content-box">
+      <van-swipe indicator-color @change="onChange">
+        <van-swipe-item v-for="(image, index) in detailInfo.images" :key="index">
+          <img :src="image" />
+        </van-swipe-item>
+        <template #indicator>
+          <div class="custom-indicator">
+            {{ current + 1 }}/{{detailInfo.images.length}}
+          </div>
+        </template>
+      </van-swipe>
+      <div class="price-time-box content">
+        <p class="price"><span>¥{{detailInfo.price}}</span></p>
+        <p class="time">
+          <span>距秒杀结束还剩</span>
+          <van-count-down :time="time">
+            <template v-slot="timeData">
+              <span class="block">{{ timeFilter(timeData.hours) }}</span>
+              <span class="colon">:</span>
+              <span class="block">{{ timeFilter(timeData.minutes) }}</span>
+              <span class="colon">:</span>
+              <span class="block">{{ timeFilter(timeData.seconds) }}</span>
+            </template>
+          </van-count-down>
+        </p>
+      </div>
+      <div class="detail-box content">
+        <p class="name"><span>{{detailInfo.name}}</span></p>
+        <p class="like">
+          <van-icon name="like-o" size="20" />
+          <span>收藏</span>
+        </p>
+      </div>
     </div>
     <div class="detail-footer content">
       <p class="car" @click="toCar">
@@ -107,8 +109,15 @@ export default {
 @import "../assets/common.less";
 
 .container {
-  padding: 5px;
-  background: @bg-grey;
+  .content-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    background: @bg-grey;
+    padding: 5px;
+  }
   .van-swipe {
     position: relative;
     img {

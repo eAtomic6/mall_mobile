@@ -109,8 +109,6 @@ export default {
 @import "../assets/common.less";
 
 .container {
-  background: @bg-grey;
-  padding: 0 10px;
   .title {
     height: 40px;
     line-height: 40px;
@@ -122,7 +120,15 @@ export default {
   }
   .car-box {
     font-size: @font-14;
-    margin-bottom: 30px;
+    position: absolute;
+    left: 0;
+    top: 40px;
+    right: 0;
+    bottom: 50px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: @bg-grey;
+    padding: 10px;
     li {
       margin-bottom: 10px;
       background: @text-white;

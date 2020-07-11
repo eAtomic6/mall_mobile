@@ -24,7 +24,6 @@ export default {
 @import "../assets/common.less";
 
 .main {
-  height: 100%;
   .top-bar {
     position: absolute;
     left: 15px;

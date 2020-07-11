@@ -84,12 +84,14 @@ export default {
 @import "../assets/common.less";
 
 .home {
-  position: relative;
   &-tab {
     height: 50px;
     line-height: 50px;
     display: flex;
     overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: @text-white;
+    width: 100%;
     li {
       min-width: 25%;
       text-align: center;
@@ -101,6 +103,13 @@ export default {
   &-content {
     padding: 10px;
     background: @bg-grey;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     .van-list {
       display: flex;
       flex-wrap: wrap;
