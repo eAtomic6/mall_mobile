@@ -45,7 +45,6 @@ export default {
     },
     getList() {
       this.$axios.get('/api/list').then(res => {
-        this.list = []
         let arr = [...res.data]
         if(this.activeItem === 1) {
           this.list = arr

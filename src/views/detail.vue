@@ -77,6 +77,8 @@ export default {
     },
     addCarFn() {
       let carList = []
+      let obj = {...this.detailInfo}
+      obj.num = 1
       if(localStorage.getItem('carList')) {
         let arr = JSON.parse(localStorage.getItem('carList'))
         let _index
@@ -88,14 +90,10 @@ export default {
         if(typeof _index === 'number') {
           ++arr[_index].num
         }else{
-          let obj = {...this.detailInfo}
-          obj.num = 1
           arr.push(obj)
         }
         carList = [...arr]
       } else {
-        let obj = {...this.detailInfo}
-        obj.num = 1
         carList = [obj]
       }
       this.$toast('添加成功，在购物车等亲')

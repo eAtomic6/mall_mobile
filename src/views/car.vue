@@ -3,7 +3,7 @@
     <div class="title">
       <span>购物车({{list.length}})</span>
       <span class="opera" v-if="!showDel" @click="showDel=!showDel">管理</span>
-      <span class="opera" v-if="showDel" @click="showDel=!showDel">完成</span>
+      <span class="opera" v-else @click="showDel=!showDel">完成</span>
     </div>
     <ul class="car-box" v-if="list.length>0">
       <li v-for="(item,index) in list" :key="item.time">
@@ -54,10 +54,12 @@ export default {
   methods: {
     getList() {
       let arr = JSON.parse(localStorage.getItem('carList'))
-      arr.map(item => {
+      if(arr){
+       arr.map(item => {
         item.bool = false
       })
-      this.list = [...arr]
+      this.list = [...arr] 
+      }
     },
     getImgUrl:function(url){
       return require('@/assets/'+url);
@@ -71,15 +73,14 @@ export default {
       })
     },
     allCheck() {
+      this.totalPrice = 0
       if(this.allFlag) {
-        this.totalPrice = 0
         this.list.forEach(item => {
           item.bool = true
           this.totalPrice += (item.num * item.price)
         })
       }else{
         this.list.forEach(item => item.bool = false)
-        this.totalPrice = 0
       }
     },
     changeFn(e,type='init') {

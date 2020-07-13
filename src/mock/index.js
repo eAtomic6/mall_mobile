@@ -17,7 +17,7 @@ const getTabList = function () {
 }
 const getGoodsList = function () {
     let list = []
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
         let obj = {
             id:i+1,
             price:Random.natural(10,30), //返回一个随机的自然数
