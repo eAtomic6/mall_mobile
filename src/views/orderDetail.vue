@@ -48,7 +48,7 @@ export default {
           return require('@/assets/'+url);
       },
       callFn() {
-          window.location.href = 'tel://027-87320576'
+          window.location.href = 'tel:027-87320576'
       }
   }
 }
