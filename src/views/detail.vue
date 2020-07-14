@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="content-box">
-      <van-swipe indicator-color @change="onChange">
+      <van-swipe :autoplay="3000" indicator-color @change="onChange">
         <van-swipe-item v-for="(image, index) in detailInfo.images" :key="index">
           <img :src="image" />
         </van-swipe-item>
@@ -133,6 +133,7 @@ export default {
     display: flex;
   }
   .price-time-box {
+    margin-bottom: 10px;
     p {
       height: 40px;
     }
@@ -166,6 +167,7 @@ export default {
   .detail-box {
     font-size: @font-14;
     background: @text-white;
+    border-radius: 5px;
     p {
       padding: 8px;
     }
@@ -193,6 +195,9 @@ export default {
       text-align: center;
       span {
         display: block;
+      }
+      i {
+        color: @text-orange;
       }
     }
     .btn {

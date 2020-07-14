@@ -3,13 +3,13 @@ import Mock from 'mockjs'
 const Random = Mock.Random;
 //使用mockjs模拟数据
 
-// const tabTitle = ['全部','水果','肉禽类','蔬菜','水产','速冻','进口','国产']
+const tabTitle = ['全部','水果','肉禽类','蔬菜','水产']
 const getTabList = function () {
     let tabs = []
     for (let i = 0; i < 8; i++) {
         let obj = {
             id:i+1,
-            name:Random.cname(), // 生成一条随机的中文句子 ( min, max )
+            name:tabTitle[i], // 生成一条随机的中文句子 ( min, max )
         }
         tabs.push(obj)
     }
@@ -17,7 +17,7 @@ const getTabList = function () {
 }
 const getGoodsList = function () {
     let list = []
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 10; i++) {
         let obj = {
             id:i+1,
             price:Random.natural(10,30), //返回一个随机的自然数
@@ -25,7 +25,7 @@ const getGoodsList = function () {
             name:Random.csentence(10, 100), // 生成一条随机的中文句子 ( min, max )
             date:Random.date("yyyy-MM-dd"),// Random.date()指示生成的日期字符串的格式,默认为yyyy-MM-dd；Random.time() 返回一个随机的时间字符串
             time:Random.time(),//时间
-            image:Random.dataImage('200x200', 'mock的图片'), //模拟图片 宽高不指定则随机
+            image:Random.dataImage('200x200', tabTitle[i]), //模拟图片 宽高不指定则随机
         }
         list.push(obj)
     }

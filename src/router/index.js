@@ -6,6 +6,8 @@ const Index = () => import('@/views/index')
 const Home = () => import('@/views/home')
 const Detail = () => import('@/views/detail')
 const Car = () => import('@/views/car')
+const Order = () => import('@/views/order')
+const orderDetail = () => import('@/views/orderDetail')
 const routes = [
   {
     path: '/',
@@ -23,6 +25,14 @@ const routes = [
       {
         path: 'Car',
         component: Car
+      },
+      {
+        path: 'Order',
+        component: Order
+      },
+      {
+        path: 'orderDetail',
+        component: orderDetail
       }
     ]
   }

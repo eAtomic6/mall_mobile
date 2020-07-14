@@ -25,14 +25,14 @@
       </li>
     </ul>
     <div v-else class="no-data">
-      <img :src="getImgUrl('timg.jpg')" alt="">
+      <img :src="getImgUrl('no-data.jpg')" alt="">
       <p>购物车空空如也，去添加商品到购物车把！</p>
     </div>
     <div class="car-footer">
       <van-checkbox v-model="allFlag" @click="allCheck">全选</van-checkbox>
       <div class="del" v-if="showDel" @click="deleteFn">删除</div>
       <div>合计：<span class="total">¥{{totalPrice}}</span></div>
-      <van-button round>结算</van-button>
+      <van-button round @click="saveFn">结算</van-button>
     </div>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
       localStorage.setItem('carList',JSON.stringify(this.list))
       this.singleCheck()
     },
-    deleteFn() {
+    deleteFn(type='init') {
       let arr = this.list.filter(item => item.bool)
       if(!arr.length){
         this.$toast('您还没有选择宝贝哦')
@@ -100,7 +100,20 @@ export default {
         this.list = this.list.filter(item => !item.bool)
         this.totalPrice = 0
         localStorage.setItem('carList',JSON.stringify(this.list))
+        if(type === 'save') {
+          let _arr = []
+          if(localStorage.getItem('orderList')) {
+            _arr = arr.concat(JSON.parse(localStorage.getItem('orderList')))
+          }else{
+            _arr = arr
+          }
+          localStorage.setItem('orderList',JSON.stringify(_arr))
+          this.$toast('结算成功')
+        }
       }
+    },
+    saveFn() {
+      this.deleteFn('save')
     }
   }
 }
@@ -141,6 +154,7 @@ export default {
       }
       img {
         width: 100%;
+        border-radius: 5px;
       }
       p.name {
         display: -webkit-box;
@@ -167,7 +181,10 @@ export default {
     transform: translate(-50%,-50%);
     text-align: center;
     img {
-      width: 50%;
+      width: 100%;
+    }
+    p {
+      font-size: @font-14;
     }
   }
   .car-footer {

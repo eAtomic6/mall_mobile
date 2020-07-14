@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 
-import { Cell,Button,Icon,Toast,List,Swipe,SwipeItem,CountDown,Col,Row,Checkbox,Stepper } from 'vant';
+import { Cell,Button,Icon,Toast,List,Swipe,SwipeItem,CountDown,Col,Row,Checkbox,Stepper,PullRefresh } from 'vant';
 import 'vant/lib/index.css'
 Vue.use(Cell)
 Vue.use(Button)
@@ -17,6 +17,7 @@ Vue.use(Col)
 Vue.use(Row)
 Vue.use(Checkbox)
 Vue.use(Stepper)
+Vue.use(PullRefresh)
 
 require('./mock')
 Vue.config.productionTip = false

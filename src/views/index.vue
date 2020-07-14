@@ -29,7 +29,7 @@ export default {
     left: 15px;
     top: 8px;
     z-index: 999;
-    background: lightgrey;
+    background: @bg-grey;
     width: 30px;
     height: 30px;
     border-radius: 50%;
