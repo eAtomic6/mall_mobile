@@ -2,7 +2,7 @@
   <div class="order">
       <div class="title">我的订单</div>
       <ul class="order-content" v-if="order.length>0">
-          <li v-for="item in order" :key="item.id">
+          <li v-for="(item,index) in order" :key="item.id+index">
               <div class="shop">
                   <img :src="getImgUrl('INS.png')" alt="">
                   <span class="name">英思官方旗舰店<van-icon name="arrow" /></span>
