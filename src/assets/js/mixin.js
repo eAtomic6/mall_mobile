@@ -1,5 +1,8 @@
 const MIXIN = {
     methods: {
+        /**
+          * @desc - 添加商品至购物车  
+        */
         addCarFn(type='init',item) {
             // debugger
             let carList = []

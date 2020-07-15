@@ -13,6 +13,9 @@
 export default {
   name: 'index',
   methods: {
+    /**
+      * @desc - 跳转至上一条路由参数  
+    */
     goBack() {
       this.$router.go(-1)
     }

@@ -57,11 +57,17 @@ export default {
     this.getTab()
   },
   methods: {
+    /**
+      * @desc - 请求顶部tab栏数据  
+    */
     getTab() {
       this.$axios.get('/api/tab').then(res => {
         this.tabs = res.data
       })
     },
+    /**
+      * @desc - 请求商品列表数据  
+    */
     getList() {
       this.$axios.get('/api/list').then(res => {
         let arr = [...res.data]
@@ -74,6 +80,10 @@ export default {
         }
       })
     },
+    /**
+      * @desc - tab栏切换
+      * @param {object} item - 当前选中项  
+    */
     changeTab(item) {
       this.activeItem = item.id
       this.loading = true
@@ -89,6 +99,9 @@ export default {
         this.finished = true
       }
     },
+    /**
+      * @desc - 执行列表请求  
+    */
     onLoad() {
       if (this.refreshing) {
         this.list = [];
@@ -108,22 +121,34 @@ export default {
         }
       }
     },
+    /**
+      * @desc - 下拉刷新  
+    */
     onRefresh() {
       this.finished = false;
       this.loading = true;
       this.onLoad();
     },
+    /**
+      * @desc - 路由跳转至商品详情  
+    */
     toDetail(item) {
       localStorage.setItem('detail',JSON.stringify(item))
       this.$router.push({
         path: '/Detail'
       })
     },
+    /**
+      * @desc - 路由跳转至购物车  
+    */
     toCar() {
       this.$router.push({
         path: '/Car'
       })
     },
+    /**
+      * @desc - 路由跳转至我的订单  
+    */
     toOrder() {
       this.$router.push({
         path: '/Order'

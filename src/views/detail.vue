@@ -88,20 +88,35 @@ export default {
     this.detailInfo = {...obj}
   },
   methods: {
+    /**
+      * @desc - 轮播图页码  
+    */
     onChange(index) {
       this.current = index;
     },
+    /**
+      * @desc - 路由跳转至购物车  
+    */
     toCar() {
       this.$router.push({
         path: '/Car'
       })
     },
+    /**
+      * @desc - 时分秒小于10补0  
+    */
     timeFilter(val) {
       return val>9 ? val : '0'+val
     },
+    /**
+      * @desc - popup弹出层关闭  
+    */
     closeFn() {
       this.numBuy = 1
     },
+    /**
+      * @desc - 点击确认按钮触发  
+    */
     sureFn() {
       let obj = {...this.detailInfo}
       obj.num = this.numBuy

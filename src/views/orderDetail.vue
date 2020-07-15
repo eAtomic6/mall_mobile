@@ -47,6 +47,9 @@ export default {
       getImgUrl:function(url){
           return require('@/assets/img/'+url);
       },
+      /**
+        * @desc - 点击售后电话 跳转至 手机拨号界面  
+      */
       callFn() {
           window.location.href = 'tel:027-87320576'
       }

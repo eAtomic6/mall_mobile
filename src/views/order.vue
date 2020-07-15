@@ -45,6 +45,9 @@ export default {
       }
   },
   methods: {
+      /**
+        * @desc - 路由跳转至订单详情  
+      */
       toOrderDetail(item) {
           this.$router.push({
               path: '/orderDetail'
@@ -54,6 +57,10 @@ export default {
       getImgUrl:function(url){
           return require('@/assets/img/'+url);
       },
+      /**
+        * @desc - 点击删除订单触发
+        * @param {number} e - 当前点击项index索引  
+      */
       orderDel(e) {
           this.order.splice(e,1)
           this.$toast('订单删除成功')

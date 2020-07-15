@@ -57,18 +57,27 @@ export default {
     this.getList()
   },
   methods: {
+    /**
+      * @desc - 获取购物车数据  
+    */
     getList() {
       let arr = JSON.parse(localStorage.getItem('carList'))
       if(arr){
-       arr.map(item => {
-        item.bool = false
-      })
-      this.list = [...arr] 
+        arr.map(item => {
+          item.bool = false
+        })
+        this.list = [...arr] 
       }
     },
+    /**
+      * @desc - 链接图片资源  
+    */
     getImgUrl:function(url){
       return require('@/assets/img/'+url);
     },
+    /**
+      * @desc - 点击商品复选框触发  
+    */
     singleCheck() {
       this.totalPrice = 0
       let arr = this.list.filter(item => item.bool)
@@ -77,6 +86,9 @@ export default {
         this.totalPrice += (item.num * item.price)
       })
     },
+    /**
+      * @desc - 点击全选复选框触发  
+    */
     allCheck() {
       this.totalPrice = 0
       if(this.allFlag) {
@@ -88,6 +100,10 @@ export default {
         this.list.forEach(item => item.bool = false)
       }
     },
+    /**
+      * @desc - 商品数量步进器增加和减小
+      * @param {number} e - 当前点击商品的index索引  
+    */
     changeFn(e,type='init') {
       if(type==='init') {
         --this.list[e].num
@@ -97,6 +113,10 @@ export default {
       localStorage.setItem('carList',JSON.stringify(this.list))
       this.singleCheck()
     },
+    /**
+      * @desc - 点击底部删除按钮触发
+      * @param {string} type - 区别 删除 和 结算 操作  
+    */
     deleteFn(type='init') {
       let arr = this.list.filter(item => item.bool)
       if(!arr.length){
@@ -119,6 +139,9 @@ export default {
         }
       }
     },
+    /**
+      * @desc - 点击结算按钮  
+    */
     saveFn() {
       this.deleteFn('save')
     }
