@@ -2,7 +2,7 @@
   <div class="order">
       <div class="title">我的订单</div>
       <ul class="order-content" v-if="order.length>0">
-          <li v-for="(item,index) in order" :key="item.id+index">
+          <li v-for="(item,index) in order" :key="item.time+index">
               <div class="shop">
                   <img :src="getImgUrl('INS.png')" alt="">
                   <span class="name">英思官方旗舰店<van-icon name="arrow" /></span>
@@ -18,14 +18,14 @@
                   <van-col span="4" class="pd-10"><span>¥{{item.price}}</span><span>× {{item.num}}</span></van-col>
               </van-row>
               <div class="btn">
-                  <van-button round>删除订单</van-button>
+                  <van-button round @click="orderDel(index)">删除订单</van-button>
                   <van-button round>评价</van-button>
               </div>
           </li>
       </ul>
       <div v-else class="no-data">
           <img :src="getImgUrl('no-order.jpg')" alt="">
-          <p>暂无订单记录！</p>
+          <p>暂无历史订单！</p>
       </div>
   </div>
 </template>
@@ -52,7 +52,12 @@ export default {
           localStorage.setItem('orderDetail',JSON.stringify(item))
       },
       getImgUrl:function(url){
-          return require('@/assets/'+url);
+          return require('@/assets/img/'+url);
+      },
+      orderDel(e) {
+          this.order.splice(e,1)
+          this.$toast('订单删除成功')
+          localStorage.setItem('orderList',JSON.stringify(this.order))
       }
   }
 }

@@ -6,7 +6,7 @@
       <span class="opera" v-else @click="showDel=!showDel">完成</span>
     </div>
     <ul class="car-box" v-if="list.length>0">
-      <li v-for="(item,index) in list" :key="item.time">
+      <li v-for="(item,index) in list" :key="item.time+index">
         <van-row>
           <van-col span="3">
             <van-checkbox v-model="item.bool" @click="singleCheck"></van-checkbox>
@@ -29,10 +29,15 @@
       <p>购物车空空如也，去添加商品到购物车把！</p>
     </div>
     <div class="car-footer">
-      <van-checkbox v-model="allFlag" @click="allCheck">全选</van-checkbox>
-      <div class="del" v-if="showDel" @click="deleteFn">删除</div>
-      <div>合计：<span class="total">¥{{totalPrice}}</span></div>
-      <van-button round @click="saveFn">结算</van-button>
+      <div>
+        <van-checkbox v-model="allFlag" @click="allCheck">全选</van-checkbox>
+        <!-- <div class="del" v-if="showDel" @click="deleteFn">删除</div> -->
+      </div>
+      <div>
+        <div>合计：<span class="total">¥{{totalPrice}}</span></div>
+        <van-button round @click="saveFn" v-if="!showDel">结算</van-button>
+        <van-button round v-else @click="deleteFn">删除</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +67,7 @@ export default {
       }
     },
     getImgUrl:function(url){
-      return require('@/assets/'+url);
+      return require('@/assets/img/'+url);
     },
     singleCheck() {
       this.totalPrice = 0
@@ -109,6 +114,8 @@ export default {
           }
           localStorage.setItem('orderList',JSON.stringify(_arr))
           this.$toast('结算成功')
+        }else{
+          this.$toast(`已从购物车删除${arr.length}个商品`)
         }
       }
     },
@@ -195,10 +202,14 @@ export default {
     display: flex;
     background: @text-white;
     justify-content: space-between;
-    align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
+    >div {
+      display: flex;
+      align-items: center;
+    }
     span.total {
       color: @text-orange;
+      margin-right: 5px;
     }
     button {
       width: 100px;

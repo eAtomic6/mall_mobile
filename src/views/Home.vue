@@ -16,20 +16,32 @@
             <p class="price">
               <span>¥{{item.price}}</span>
               <span>
-                <van-icon name="cart-circle-o" size="20" class="to-car" @click.stop="toCar" />
-                <van-icon name="user-circle-o" size="20" @click.stop="toOrder" />
+                <van-icon name="cart-circle-o" size="20" @click.stop="addCarFn('home',item)" />
               </span>
             </p>
           </van-cell>
         </van-list>
       </van-pull-refresh>
     </div>
+    <div class="home-footer-tab">
+      <p @click.stop="toCar">
+        <van-icon name="shopping-cart-o" size="20" />
+        <span>购物车</span>
+      </p>
+      <p @click.stop="toOrder">
+        <van-icon name="user-circle-o" size="20" />
+        <span>我的订单</span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
+import {MIXIN} from "@/assets/js/mixin";
+
 export default {
   name: 'home',
+  mixins: [MIXIN],
   data() {
     return {
       tabs: [],
@@ -148,7 +160,7 @@ export default {
     left: 0;
     top: 50px;
     right: 0;
-    bottom: 0;
+    bottom: 50px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     .van-list {
@@ -185,9 +197,6 @@ export default {
           justify-content: space-between;
           margin-top: 10px;
           padding: 0 10px;
-          .to-car {
-            margin-right: 10px;
-          }
         }
       }
       /deep/ .van-list__finished-text {
@@ -195,6 +204,22 @@ export default {
         left: 50%;
         bottom: -10px;
         transform: translateX(-50%);
+      }
+    }
+  }
+  &-footer-tab {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    font-size: @font-14;
+    p {
+      text-align: center;
+      span {
+        display: block;
       }
     }
   }

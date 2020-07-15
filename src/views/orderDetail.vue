@@ -45,7 +45,7 @@ export default {
   },
   methods: {
       getImgUrl:function(url){
-          return require('@/assets/'+url);
+          return require('@/assets/img/'+url);
       },
       callFn() {
           window.location.href = 'tel:027-87320576'

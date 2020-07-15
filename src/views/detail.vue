@@ -40,22 +40,46 @@
         <span>购物车</span>
       </p>
       <p class="btn">
-        <van-button round size="small" @click="addCarFn">加入购物车</van-button>
-        <van-button round size="small">立即购买</van-button>
+        <van-button round @click="addCarFn()">加入购物车</van-button>
+        <van-button round @click="show=true">立即购买</van-button>
       </p>
     </div>
+    <van-popup v-model="show" round position="bottom" :style="{ height: '60%' }" closeable close-icon="close" @click-overlay="closeFn" @close="closeFn">
+      <div class="pop-content">
+        <div class="title flex">
+          <img :src="detailInfo.image" alt="">
+          <p>
+            <span>¥{{detailInfo.price}}</span>
+            <span class="text">库存100件</span>
+            <span class="text">生产日期：{{detailInfo.date}}</span>
+          </p>
+        </div>
+        <div class="step van-hairline--top flex">
+          <span>购买数量</span>
+          <van-stepper v-model="numBuy" />
+        </div>
+        <div class="btn">
+          <van-button round @click="sureFn">确认</van-button>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script>
+import {MIXIN} from "@/assets/js/mixin";
+
 export default {
   name: 'detail',
+  mixins: [MIXIN],
   data() {
     return {
       images: [],
       detailInfo: {},
       current: 0,
-      time: new Date('2020-07-15').getTime()
+      time: new Date('2020-07-15').getTime(),
+      show: false,
+      numBuy: 1
     }
   },
   created () {
@@ -75,29 +99,23 @@ export default {
     timeFilter(val) {
       return val>9 ? val : '0'+val
     },
-    addCarFn() {
-      let carList = []
+    closeFn() {
+      this.numBuy = 1
+    },
+    sureFn() {
       let obj = {...this.detailInfo}
-      obj.num = 1
-      if(localStorage.getItem('carList')) {
-        let arr = JSON.parse(localStorage.getItem('carList'))
-        let _index
-        arr.find((item,index) => {
-          if(item.name === this.detailInfo.name) {
-            _index = index
-          }
-        })
-        if(typeof _index === 'number') {
-          ++arr[_index].num
-        }else{
-          arr.push(obj)
-        }
-        carList = [...arr]
-      } else {
-        carList = [obj]
+      obj.num = this.numBuy
+      let _arr = []
+      if(localStorage.getItem('orderList')) {
+        let arr = JSON.parse(localStorage.getItem('orderList'))
+        arr.push(obj)
+        _arr = [...arr]
+      }else{
+        _arr = [obj]
       }
-      this.$toast('添加成功，在购物车等亲')
-      localStorage.setItem('carList',JSON.stringify(carList))
+      localStorage.setItem('orderList',JSON.stringify(_arr))
+      this.$toast('下单成功,会安排尽快发货')
+      this.show = false
     }
   }
 }
@@ -188,8 +206,8 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 5px;
     font-size: @font-14;
+    padding-right: 10px;
     .car {
       width: 20%;
       text-align: center;
@@ -204,7 +222,6 @@ export default {
       width: 80%;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       button {
         width: 48%;
         color: @text-white;
@@ -214,6 +231,51 @@ export default {
         &:last-of-type {
           background: @bg-ffbdod;
         }
+      }
+    }
+  }
+  .pop-content {
+    position: relative;
+    padding: 40px 10px 10px 10px;
+    height: 100%;
+    box-sizing: border-box;
+    .flex {
+      display: flex;
+    }
+    .title {
+      img {
+        width: 40%;
+        height: 80%;
+      }
+      span {
+        display: block;
+        text-align: left;
+        padding-left: 20px;
+        &:first-of-type {
+          color: @text-orange;
+          font-size: @font-18;
+        }
+        &.text {
+          color: @bg-666;
+          font-size: @font-14;
+        }
+      }
+    }
+    .step {
+      margin-top: 10px;
+      padding: 10px 0;
+      justify-content: space-between;
+    }
+    .btn {
+      position: absolute;
+      left: 0;
+      bottom: 5px;
+      text-align: center;
+      width: 100%;
+      button {
+        width: 95%;
+        background: @text-orange;
+        color: @text-white;
       }
     }
   }
